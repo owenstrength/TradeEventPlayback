@@ -1,0 +1,1 @@
+This project implements a deterministic event replay engine that consumes a fixed binary event log, processes events in strict order with no heap allocation in the hot path, injects controlled failures, and reports tail-latency statistics. The system is intentionally single-threaded and minimal to explore correctness, determinism, and latency tradeoffs.
