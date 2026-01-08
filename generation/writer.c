@@ -6,7 +6,7 @@
 #include "../shared/event.h"
 #include "../shared/event_file_header.h"
 
-#define MAX_EVENTS 1000000
+#define MAX_EVENTS 10000000
 #define VERSION 1
 
 void write_header_to_file(FILE *f, uint32_t version, uint64_t event_count) {

@@ -20,7 +20,7 @@ void reset_state() {
     state.invalid_events = 0;
 }
 
-void process_event(struct event *e) {
+static inline void process_event(struct event *e) {
     state.recorded_events++;
     state.current_price = e->price;
     state.current_quantity = e->quantity;
@@ -90,6 +90,9 @@ void replay_events_mmap(const char *filename) {
     size_t size = st.st_size - sizeof(struct header);
 
     struct event *events_base = mmap(NULL, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
+    madvise(events_base, st.st_size, MADV_SEQUENTIAL);
+    madvise(events_base, st.st_size, MADV_WILLNEED);
+    
     if (events_base == MAP_FAILED) {
         perror("mmap");
         close(fd);
